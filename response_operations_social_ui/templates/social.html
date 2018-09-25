@@ -1,8 +1,11 @@
 {% extends "layouts/base.html" %}
 {% block page_title %}Social | Survey Data Collection{% endblock %}
 
+{% block header %}
+  {% include 'partials/social-case-search.html' %}
+{% endblock %}
+
 {% block main %}
-{% include 'partials/social-case-search.html' %}
   <div role="main" id="main" class="page__main">
     <div class="grid">
       <div class="grid__col col-12@m">
