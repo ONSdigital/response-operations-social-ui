@@ -1,7 +1,11 @@
 {% extends "layouts/base.html" %}
 {% block page_title %}Social | Survey Data Collection{% endblock %}
+
+{% block header %}
+  {% include 'partials/social-case-search.html' %}
+{% endblock %}
+
 {% block main %}
-{% include 'partials/social-case-search.html' %}
   <div class="container page__container">
     {% for msg in get_flashed_messages(category_filter=["success"]) %}
       <div class="panel panel--simple panel--success u-mt-l">
