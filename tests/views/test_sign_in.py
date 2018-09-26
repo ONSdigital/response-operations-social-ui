@@ -15,7 +15,7 @@ class TestSignIn(unittest.TestCase):
 
     def setUp(self):
         payload = {'user_id': 'test-id',
-                   'aud': 'response_operations'}
+                   'aud': 'response_operations_social'}
 
         app = create_app('TestingConfig')
         key = app.config['UAA_PUBLIC_KEY']
