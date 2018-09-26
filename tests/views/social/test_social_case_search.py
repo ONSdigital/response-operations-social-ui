@@ -28,9 +28,6 @@ def mock_sample_units(postcode):
 
 class TestSocialCaseSearch(ViewTestCase):
 
-    def setup_data(self):
-        pass
-
     @requests_mock.mock()
     def test_valid_postcode(self, mock_request):
         postcode = 'TW9 4ET'
