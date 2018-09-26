@@ -14,7 +14,7 @@ def decode_access_token(access_token):
     decoded_jwt = jwt.decode(
         access_token,
         key=uaa_public_key,
-        audience='response_operations',
+        audience='response_operations_social',
         leeway=10
     )
     return decoded_jwt
