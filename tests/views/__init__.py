@@ -8,7 +8,3 @@ class ViewTestCase(TestCase):
     def setUp(self):
         self.app = create_app('TestingConfig')
         self.client = self.app.test_client()
-        self.setup_data()
-
-    def setup_data(self):
-        raise NotImplementedError
