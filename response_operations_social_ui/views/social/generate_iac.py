@@ -18,10 +18,7 @@ def generate_iac():
     context = build_view_social_case_context(case_id)
     logger.debug("generate_iac", case_id=case_id)
 
-    def split_string(x, n):
-        return [x[i:i + n] for i in range(0, len(x), n)]
-    split_hac = split_string(new_iac, 4)
-    formatted_hac = (' '.join(map(str, split_hac)))
+    formatted_hac = f'{new_iac[:4]} {new_iac[4:8]} {new_iac[8:]}'
     context['new_iac'] = formatted_hac
 
     return render_template('social-view-case-details.html', **context)
