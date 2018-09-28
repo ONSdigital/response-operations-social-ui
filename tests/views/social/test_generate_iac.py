@@ -18,5 +18,5 @@ class TestGenerateIac(SocialViewTestCase):
 
         response = self.client.post(f'/iac', follow_redirects=True, data=post_data)
 
-        self.assertIn("k7j6n7pffg8g".encode(), response.data)
+        self.assertIn("k7j6 n7pf fg8g".encode(), response.data)
         self.assertIn("16 unique".encode(), response.data)
