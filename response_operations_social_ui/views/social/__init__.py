@@ -5,6 +5,7 @@ from response_operations_social_ui.views.social.social_view_case_details import 
     update_case_response_status, view_social_case_details
 
 from response_operations_social_ui.views.social.generate_iac import generate_iac
+from response_operations_social_ui.views.social.generate_mi_report import generate_social_mi_report
 
 social_bp = Blueprint('social_bp', __name__,
                       static_folder='static', template_folder='templates')
@@ -15,3 +16,4 @@ social_bp.add_url_rule('/case/<case_id>/change-response-status', view_func=chang
 social_bp.add_url_rule('/case/<case_id>/change-response-status',
                        view_func=update_case_response_status, methods=['POST'])
 social_bp.add_url_rule('/iac', view_func=generate_iac, methods=['POST'])
+social_bp.add_url_rule('/response_chasing', view_func=generate_social_mi_report, methods=['GET'])
