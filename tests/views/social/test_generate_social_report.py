@@ -10,4 +10,3 @@ class TestGenerateSocialReport(SocialViewTestCase):
         mock_request.get(self.get_social_mi_report)
         response = self.client.get(f'/response_chasing', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-
