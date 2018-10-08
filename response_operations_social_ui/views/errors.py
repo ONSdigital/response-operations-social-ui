@@ -22,7 +22,7 @@ def api_error(error):
 
 @error_bp.app_errorhandler(401)
 def handle_authentication_error(error):
-    logger.warn('Authentication failed')
+    logger.warning('Authentication failed')
     flash('Incorrect username or password', category='failed_authentication')
     return redirect(url_for('sign_in_bp.sign_in'))
 
