@@ -1,10 +1,8 @@
-import logging
 from json import JSONDecodeError
+import logging
 
-import requests
 from flask import current_app
-from requests import HTTPError
-
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -27,8 +25,6 @@ def request_uaa_public_key(app):
         logger.exception(f"No public key returned by UAA {public_key_url}")
     except (JSONDecodeError, ValueError):
         logger.exception(f"Unable to decode response from UAA {public_key_url}")
-    except HTTPError:
-        logger.exception(f"Error while retrieving public key from UAA at {public_key_url}")
     return None
 
 
