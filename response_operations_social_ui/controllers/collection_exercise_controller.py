@@ -10,14 +10,14 @@ from response_operations_social_ui.exceptions.exceptions import ApiError
 logger = wrap_logger(logging.getLogger(__name__))
 
 
-def download_report():
+def download_report(collection_exercise_id):
     logger.debug(
         "Downloading response chasing report"
     )
 
     url = (
         f"{app.config['REPORT_URL']}"
-        f"/reporting-api/v1/response-chasing/download-social-mi"
+        f"/reporting-api/v1/response-chasing/download-social-mi/{collection_exercise_id}"
     )
 
     response = requests.get(url)
