@@ -24,21 +24,23 @@ def get_case_by_id(case_id):
     return response.json()
 
 
-def update_case_group_status(collection_exercise_id, ru_ref, case_group_event):
-    logger.debug('Updating status', collection_exercise_id=collection_exercise_id, ru_ref=ru_ref,
-                 case_group_event=case_group_event)
-    url = f'{app.config["CASE_URL"]}/casegroups/transitions/{collection_exercise_id}/{ru_ref}'
-    response = requests.put(url, auth=app.config['CASE_AUTH'], json={'event': case_group_event})
+def post_case_event(case_id, category, description):
+    logger.debug("Posting case event", case_id=case_id, category=category)
+    url = f'{app.config["CASE_URL"]}/cases/{case_id}/events'
+    case_event = {
+        "category": category,
+        "description": description,
+        "createdBy": "ROPS-SOCIAL"
+    }
+    response = requests.post(url, auth=app.config['CASE_AUTH'], json=case_event)
 
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError:
-        logger.exception('Error updating case group status', collection_exercise_id=collection_exercise_id,
-                         ru_ref=ru_ref, case_group_event=case_group_event)
+        logger.exception('Error updating case group status', case_id=case_id, category=category)
         raise ApiError(response)
 
-    logger.debug('Successfully updated case group status', collection_exercise_id=collection_exercise_id,
-                 ru_ref=ru_ref, case_group_event=case_group_event)
+    logger.debug('Successfully posted case event', case_id=case_id, category=category)
 
 
 def get_available_case_group_statuses_direct(collection_exercise_id, ru_ref):
