@@ -16,5 +16,5 @@ social_bp.add_url_rule('/case/<case_id>/change-response-status', view_func=chang
 social_bp.add_url_rule('/case/<case_id>/change-response-status',
                        view_func=update_case_response_status, methods=['POST'])
 social_bp.add_url_rule('/iac', view_func=generate_iac, methods=['POST'])
-social_bp.add_url_rule('/response_chasing/<collection_exercise_id>',
+social_bp.add_url_rule('/response-chasing/<collection_exercise_id>',
                        view_func=generate_social_mi_report, methods=['GET'])

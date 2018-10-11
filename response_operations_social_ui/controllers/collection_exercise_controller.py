@@ -11,9 +11,7 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 
 def download_report(collection_exercise_id):
-    logger.debug(
-        "Downloading response chasing report"
-    )
+    logger.debug("Downloading response chasing report", collection_exercise_id=collection_exercise_id)
 
     url = (
         f"{app.config['REPORT_URL']}"
@@ -25,10 +23,8 @@ def download_report(collection_exercise_id):
     try:
         response.raise_for_status()
     except HTTPError:
-        logger.error(
-            "Error retrieving collection exercise")
+        logger.error("Error retrieving collection exercise", collection_exercise_id=collection_exercise_id)
         raise ApiError(response)
 
-    logger.debug(
-        "Successfully downloaded response chasing report")
+    logger.debug("Successfully downloaded response chasing report", collection_exercise_id=collection_exercise_id)
     return response
