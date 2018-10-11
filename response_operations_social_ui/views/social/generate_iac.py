@@ -15,5 +15,5 @@ def generate_iac():
     logger.debug("Generating new IAC for case", case_id=case_id)
     new_iac = case_controller.generate_iac(case_id)
 
-    flash(new_iac, 'new_iac')
+    flash(new_iac, category='new_iac')
     return redirect(url_for('social_bp.view_social_case_details', case_id=case_id))
