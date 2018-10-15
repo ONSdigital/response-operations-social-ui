@@ -104,3 +104,19 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
 
         # Then
         self.assertEqual(expected_grouped_ordered_events, actual_grouped_ordered_events)
+
+    @requests_mock.mock()
+    def test_new_iac_is_displayed(self, mock_request):
+        mock_request.get(self.get_case_by_id_url, json=self.mocked_case_details)
+        mock_request.get(self.get_sample_attributes_by_id_url, json=self.mocked_sample_attributes)
+        mock_request.get(self.get_case_events_by_case_id_url, json=self.mocked_case_events)
+        mock_request.get(self.iac_url, json=self.mocked_iacs)
+        mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
+        mock_request.post(self.post_case_new_iac_url, json={'iac': 'testiac12345'})
+
+        response = self.client.post('/iac',
+                                    data=f'case_id={self.case_id}',
+                                    follow_redirects=True,
+                                    content_type='application/x-www-form-urlencoded')
+
+        self.assertIn(b'test iac1 2345', response.data)

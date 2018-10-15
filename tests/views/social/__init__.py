@@ -12,6 +12,7 @@ class SocialViewTestCase(ViewTestCase):
     ru_ref = "LMS0001"
 
     get_case_by_id_url = f'{TestingConfig.CASE_URL}/cases/{case_id}?iac=true'
+    post_case_new_iac_url = f'{TestingConfig.CASE_URL}/cases/{case_id}/iac'
     iac_url = f'{TestingConfig.CASE_URL}/cases/{case_id}/iac'
     get_sample_attributes_by_id_url = f'{TestingConfig.SAMPLE_URL}/samples/{sample_unit_id}/attributes'
     get_case_events_by_case_id_url = f'{TestingConfig.CASE_URL}/cases/{case_id}/events'
