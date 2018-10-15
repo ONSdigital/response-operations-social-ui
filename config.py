@@ -36,6 +36,8 @@ class Config(object):
     IAC_PASSWORD = os.getenv('IAC_PASSWORD')
     IAC_AUTH = (IAC_USERNAME, IAC_PASSWORD)
 
+    REPORT_URL = os.getenv('REPORT_URL')
+
     SAMPLE_URL = os.getenv('SAMPLE_URL')
     SAMPLE_USERNAME = os.getenv('SAMPLE_USERNAME')
     SAMPLE_PASSWORD = os.getenv('SAMPLE_PASSWORD')
@@ -64,6 +66,8 @@ class DevelopmentConfig(Config):
     IAC_USERNAME = os.getenv('IAC_USERNAME', 'admin')
     IAC_PASSWORD = os.getenv('IAC_PASSWORD', 'secret')
     IAC_AUTH = (IAC_USERNAME, IAC_PASSWORD)
+
+    REPORT_URL = os.getenv('REPORT_URL', 'http://localhost:8084')
 
     SAMPLE_URL = os.getenv('SAMPLE_URL', 'http://localhost:8125')
     SAMPLE_USERNAME = os.getenv('SAMPLE_USERNAME', 'admin')

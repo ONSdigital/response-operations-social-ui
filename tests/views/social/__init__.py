@@ -20,6 +20,8 @@ class SocialViewTestCase(ViewTestCase):
                                                    f'/{collection_exercise_id}/{ru_ref}'
     update_case_group_status_url = f'{TestingConfig.CASE_URL}/casegroups/transitions/{collection_exercise_id}/{ru_ref}'
     get_sample_by_id_url = f'{TestingConfig.SAMPLE_URL}/samples/{sample_unit_id}/attributes'
+    get_social_mi_report = f'{TestingConfig.REPORT_URL}/reporting-api/v1/response-chasing/download-social-mi/' \
+                           f'{collection_exercise_id}'
 
     test_data_path = os.path.join(os.path.dirname(__file__), '../../test_data/')
 
