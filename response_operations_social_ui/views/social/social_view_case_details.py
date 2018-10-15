@@ -1,8 +1,9 @@
-import logging
 from collections import OrderedDict
+import logging
 
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, get_flashed_messages
 from flask_login import login_required
+from more_itertools import first_true
 from structlog import wrap_logger
 
 from response_operations_social_ui.common.social_outcomes import map_social_case_status, map_social_status_groups, \
@@ -18,6 +19,11 @@ logger = wrap_logger(logging.getLogger(__name__))
 def view_social_case_details(case_id):
     context = build_view_social_case_context(case_id)
     logger.debug("view_social_case_details", case_id=case_id, status=context.get('status'))
+    new_iac_tuple = first_true(get_flashed_messages(with_categories=True),
+                               None,
+                               lambda category_and_message: category_and_message[0] == 'new_iac')
+    if new_iac_tuple:
+        context['new_iac'] = f'{new_iac_tuple[1][:4]} {new_iac_tuple[1][4:8]} {new_iac_tuple[1][8:]}'
 
     return render_template('social-view-case-details.html', **context)
 
