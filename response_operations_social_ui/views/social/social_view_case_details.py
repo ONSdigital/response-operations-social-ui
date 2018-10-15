@@ -18,9 +18,9 @@ logger = wrap_logger(logging.getLogger(__name__))
 def view_social_case_details(case_id):
     context = build_view_social_case_context(case_id)
     logger.debug("view_social_case_details", case_id=case_id, status=context.get('status'))
-    new_iac_tuple = next(category_and_message for category_and_message
+    new_iac_tuple = next((category_and_message for category_and_message
                          in get_flashed_messages(with_categories=True)
-                         if category_and_message[0] == 'new_iac')
+                         if category_and_message[0] == 'new_iac'), None)
     if new_iac_tuple:
         context['new_iac'] = f'{new_iac_tuple[1][:4]} {new_iac_tuple[1][4:8]} {new_iac_tuple[1][8:]}'
 
