@@ -13,7 +13,7 @@ class TestSocialOutcomes(unittest.TestCase):
         mapped_event = get_formatted_social_outcome('NOT_A_SOCIAL_CASE_EVENT')
         self.assertEqual(mapped_event, 'NOT_A_SOCIAL_CASE_EVENT')
 
-    def test_map_invalid_social_cases_event_default_to_None(self):
+    def test_map_invalid_social_cases_event_default_to_none(self):
         mapped_event = get_formatted_social_outcome('NOT_A_SOCIAL_CASE_EVENT', default_to_none=True)
         self.assertIsNone(mapped_event)
 

@@ -1,5 +1,5 @@
-from collections import OrderedDict
 import json
+from collections import OrderedDict
 
 import requests_mock
 
@@ -50,8 +50,7 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
 
     @requests_mock.mock()
     def test_change_response_status(self, mock_request):
-        mock_request.get(self.get_case_by_id_url, json=self.mocked_case_details)
-        mock_request.put(self.update_case_group_status_url)
+        mock_request.post(self.post_case_event)
 
         response = self.client.post(f'/case/{self.case_id}/change-response-status?status_updated=True&updated_'
                                     f'status=PRIVACY_DATA_CONFIDENTIALITY_CONCERNS',
