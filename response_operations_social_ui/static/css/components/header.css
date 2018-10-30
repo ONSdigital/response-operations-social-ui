@@ -3,76 +3,7 @@
 
 /* Need to check through, and separate out the nav styles too
 
-
-/* Had to add the skip style back in from the earlier v of responsive.css - couldn't find it */
-
-.skip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.skip__link {
-  display: block;
-  height: 1px;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
-  top: -30px;
-  -webkit-transition: top 100ms;
-  transition: top 100ms;
-  text-align: center;
-  color: #fff;
-  background: #003d59;
-  font-weight: 600;
-  font-size: 19.8px;
-  font-size: 1.1rem;
-}
-
-.skip__link:focus {
-  padding: 16px;
-  padding: 1rem;
-  max-height: 20em;
-  height: auto;
-  top: 0;
-}
-
-
-
 /* copied from Help and Support on Census and changed for SDC */
-
-.page__header{
-  background: #222;
-  font-size: 0.9rem;
-}
-
-
-
-.header__logo a{
-  color: #fff;
-  text-decoration: none;
-}
-
-
-.header__logo a:hover, .header__logo a:focus, .header__logo a:active{
-  color: #fff;
-  text-decoration: underline;
-}
-
-
-
-.logo__img{
-  width: 16px;
-  height: 16px;
-  margin: 0 0.5rem 0.25rem 0;
-}
-
-.page__header--title{
-  color: #fff;
-}
-
-
 
 a.site-title{
   color: #fff;
@@ -253,23 +184,18 @@ a.sign-out, a.sign-out:hover {
     padding-bottom: 1rem;
   }
 }
-
-.header__title {
-  display: none;
-}
-
+/*
 .header__nav {
   margin-left: auto;
   margin-right: 16px;
 }
 
-
 .header__logo{
     width: auto;
     margin: 0;
-    /*margin-left: 1rem;*/
+    margin-left: 1rem;
 }
-
+*/
 .bar__title a {
     color: #fff;
     text-decoration: none;

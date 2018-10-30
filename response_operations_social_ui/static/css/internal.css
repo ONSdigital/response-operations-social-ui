@@ -3,25 +3,9 @@
 /* Any CSS we need to override the CDN styles */
 /* Need to keep this minimal, and push styles up to the CDN when we're happy with them */
 
-
-/* Broaden out our 12 column grid to be 1280px wide with 16px gutters and margins */
-
-.container {
-  max-width: 1034.01px;
-  max-width: 57.445rem;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 16px;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-
-
 /* Change base font size for 1rem from 18px to 16px */
 
-
+/*
 html {
   font-size: 16px;
   line-height: 1.6;
@@ -34,7 +18,7 @@ html {
   }
 }
 
-
+/*
 .grid__col {
   font-size: 16px;
   font-size: 1rem;
@@ -43,7 +27,7 @@ html {
   *display: inline;
   *zoom: 1;
 }
-
+*/
 
 .table__dense {
   font-size: 90%;

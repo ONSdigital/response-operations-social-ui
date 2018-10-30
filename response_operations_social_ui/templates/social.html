@@ -2,6 +2,7 @@
 {% block page_title %}Social | Survey Data Collection{% endblock %}
 
 {% block header %}
+  {% include 'partials/header.html' %}
   {% include 'partials/social-case-search.html' %}
 {% endblock %}
 
@@ -14,7 +15,7 @@
             <h2 class="case-search-results-info" id="search-results-info">
               {{ results|length }} result{% if results|length != 1 %}s{% endif %} found for {{ postcode }}
             </h2>
-            <pl class="case-search-results-list" id="search-results-list">
+            <ul class="case-search-results-list" id="search-results-list">
               {% for result in results %}
                 <li class="case-search-results-list__item" id="search-results-item-{{ loop.index }}">
                   <span class="results-list-ref" id="search-results-ref-{{ loop.index }}"><a
@@ -27,7 +28,7 @@
                         id="search-results-address-{{ loop.index }}">{{ result.address }}</span>
                 </li>
               {% endfor %}
-            </pl>
+            </ul>
           {% endif %}
         </div>
       </div>
