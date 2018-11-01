@@ -7,19 +7,19 @@
         <div class="skip">
           <a class="skip__link" href="#main">Skip to content</a>
         </div>
-        
+
         <header class="header header--thin header--internal">
           {% include 'partials/header.html' %}
           {% block header %}{% endblock header %}
         </header>
-        
+
         <div class="container container--wide page__container">
           {% block main %}{% endblock main %}
         </div>
       </div>
     {% block footer %}
       {% include ('partials/footer.html') %}
-    {% endblock %}      
+    {% endblock %}
     </div>
     <script src="{{ scripts_cdn }}"></script>
     </body>
