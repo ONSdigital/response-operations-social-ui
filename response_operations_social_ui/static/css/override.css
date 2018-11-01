@@ -16,6 +16,10 @@
 @import "/css/components/table.css";
 /* @import "/css/components/utilities.css"; */
 
+/* Utility overrides */
+.input-width-7 {
+  width: 8.6rem;
+}
 
 html{
   height: 100%;
@@ -222,11 +226,11 @@ button.hidden{
 .lock:before {
   background: #fff url(/s/img/icons/icons--lock.svg) no-repeat center center;
 }
-
+/*
 .page__content{
   overflow-x: visible;
 }
-
+*/
 
 /* RU page Reporting unit page*/
 
@@ -363,7 +367,7 @@ input[type="file"] {
 .error-message {
   color: #D0021B;
 }
-
+/*
 button{
      background:none;
      color: #4263c2;
@@ -373,6 +377,7 @@ button{
      border-bottom:1px solid #4263c2;
      cursor: pointer;
 }
+*/ 
 
 /* Social */
 
@@ -382,6 +387,8 @@ button{
 
 .case-search{
   background-color: #e4e8eb;
+  padding: .8rem 0;
+  overflow: hidden;
 }
 
 .case-search-input2{
@@ -396,11 +403,11 @@ button{
 .social-case-search-results{
   /* display: none; */
 }
-
+/*
 .case-search-results-info{
   margin: 1rem 0 2rem 0;
 }
-
+*/
 .case-search-results-list{
   list-style: none;
   padding-left: 0;

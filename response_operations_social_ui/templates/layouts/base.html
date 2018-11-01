@@ -8,7 +8,9 @@
           <a class="skip__link" href="#main">Skip to content</a>
         </div>
         {%- block header %}
+        <header class="header header--thin header--internal">
           {% include 'partials/header.html' %}
+        </header>
         {% endblock header -%}
         <div class="container container--wide page__container">
           {%- block main %}{% endblock main -%}
