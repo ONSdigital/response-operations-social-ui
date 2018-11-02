@@ -11,7 +11,7 @@
       {% if messages %}
       {% for category, message in messages %}
       {% if category == "failed_authentication" %}
-      <div class="panel panel--error u-mt-s">
+      <div class="panel panel--error u-mb-s">
         <div class="panel__header">
           <h1 class="panel__title venus">{{ message }}</h1>
         </div>
@@ -21,7 +21,7 @@
       </div>
       {% endif %}
       {% if category == "successful_signout" %}
-      <div class="panel panel--simple panel--success u-mt-s">
+      <div class="panel panel--simple panel--success u-mb-s">
         <div class="panel__body" data-qa="success-body">
           <p class="mars" id="successfully-signed-out">{{ message }}</p>
         </div>
@@ -31,14 +31,14 @@
       {% endif %}
       {% endwith %}
       <section>
-        <form method="post" class="form u-mt-m">
+        <form method="post" class="form">
           {{ form.csrf_token }}
           <div>
             {% if form.errors %}
             <div class="panel panel--error u-mb-m">
               <div class="panel__header">
                 {% if form.errors|length == 1 %}
-                <h1 id="error-count" class="panel__title venus">There is 1 error on this page</h1>
+                <h1 id="error-count" class="panel__title venus">There is an error on this page</h1>
                 {% else %}
                 <h1 id="error-count" class="panel__title venus">There are {{ form.errors|length }} errors on this page</h1>
                 {% endif %}
