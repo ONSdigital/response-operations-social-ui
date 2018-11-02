@@ -21,7 +21,7 @@
                     id="search-results-case-link-{{ loop.index }}"
                     href="{{ url_for('social_bp.view_social_case_details', case_id=result.case.id) }}">{{ result.case.caseGroup.sampleUnitRef }}</a></span>
                   <span class="u-mr-s"
-                    id="search-results-postcode-{{ loop.index }}">{{ result.attributes.POSTCODE }}      </span>
+                    id="search-results-postcode-{{ loop.index }}">{{ result.attributes.POSTCODE }}</span>
                   <span id="search-results-address-{{ loop.index }}">{{ result.address }}</span>
                 </li>
               {% endfor %}

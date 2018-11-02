@@ -1,35 +1,15 @@
-
-
 /* Any CSS we need to override the CDN styles */
 /* Need to keep this minimal, and push styles up to the CDN when we're happy with them */
 
-/* Change base font size for 1rem from 18px to 16px */
+@import "/css/components/spoke.css";
 
-/*
-html {
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+/* Utility overrides */
+.input-width-7 {
+  width: 8.6rem;
 }
 
-@media only screen and (min-width: 300px) and (max-width: 500px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-/*
-.grid__col {
-  font-size: 16px;
-  font-size: 1rem;
-  padding-left: 16px;
-  padding-left: 1rem;
-  *display: inline;
-  *zoom: 1;
-}
-*/
-
-.table__dense {
-  font-size: 90%;
-  font-size: 100%;
+.case-search{
+  background-color: #e4e8eb;
+  padding: .8rem 0;
+  overflow: hidden;
 }
