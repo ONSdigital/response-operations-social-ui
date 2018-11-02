@@ -10,22 +10,16 @@
     </div>
   </div>
   <div class="spoke__body" id="spoke__body">
-    <dl class="description-list description-list-8">
-      <dt class="">Reference:
-      </dt>
-      <dd class="current-reference">
-        {{ reference }}
-      </dd>
-      <dt class="">Current status:
-      </dt>
-      <dd class="" id="current-status">
-        {{ current_status }}
-      </dd>
-    </dl>
-    <form action="" method="post" class="u-mt-l">
+  <dl class="metadata metadata__list grid grid--gutterless" title="Item metadata" aria-label="Item metadata">
+    <dt class="metadata__term grid__col col-4@m venus">Reference:</dt>
+    <dd class="metadata__value grid__col col-8@m">{{ reference }}</dd>
+    <dt class="metadata__term grid__col col-4@m venus">Current status:</dt>
+    <dd class="metadata__value grid__col col-8@m" id="current-status">{{ current_status }}</dd>
+  </dl>
+    <form method="post" class="u-mt-l">
       <div class="field field--select">
         <label class="label mars u-mb-s" for="status-list">Select new status code</label>
-        <select class="input input--select" id="status-list" name="event" required>
+        <select class="input input--select input--block" id="status-list" name="event" required>
           <option selected disabled hidden value="">Select a status code</option>
           {% for group, group_statuses in statuses.items() %}
             {% set outer_loop = loop %}
@@ -37,7 +31,7 @@
           {% endfor %}
         </select>
       </div>
-      <div class="u-mt-s">
+      <div class="u-mt-l  u-mb-s">
         <button type="submit" id="response-status-change-confirm-button" class="btn btn--primary">Set new status</button>
       </div>
       <div>
