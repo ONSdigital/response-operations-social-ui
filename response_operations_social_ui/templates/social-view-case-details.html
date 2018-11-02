@@ -61,7 +61,11 @@
     <section class="social-case-section u-mt-xl">
       <h2 class="neptune">Unique access code</h2>
       <p class="mars" id="new-iac-count">
-        There have been {{iac_count}} unique access codes issued for this case.
+      {% if iac_count == 1 %}
+        There has been {{ iac_count }} unique access code issued for this case.
+      {% else %}
+        There have been {{ iac_count }} unique access codes issued for this case.
+      {% endif %}
       </p>
       <form action="{{ url_for('social_bp.generate_iac') }}" method='POST'>
         <input type="hidden" name="case_id" value="{{case_id}}"/>
