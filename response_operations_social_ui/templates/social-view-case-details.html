@@ -50,12 +50,12 @@
   <div class="case-details u-mt-m">
     <section class="social-case-section u-mt-l">
       <h2 class="neptune">Property address</h2>
-      <div class="address" id="case-attributes">
+      <div id="case-attributes">
+        <p>
         {% for name in displayed_attributes %}
-          <div class="case-address__{{ name|lower }}" id="case-{{ name|lower|replace('_', '-') }}">
-            {{ attributes[name] }}
-          </div>
+          <span class="case-address__{{ name|lower }}" id="case-{{ name|lower|replace('_', '-') }}">{{ attributes[name] }}</span><br>
         {% endfor %}
+        </p>
       </div>
     </section>
     <section class="social-case-section u-mt-xl">
