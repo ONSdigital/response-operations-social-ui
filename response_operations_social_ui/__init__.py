@@ -8,6 +8,7 @@ from flask_assets import Bundle, Environment
 from flask_login import LoginManager
 from flask_session import Session
 from flask_zipkin import Zipkin
+from jwt.algorithms import get_default_algorithms
 from structlog import wrap_logger
 
 from response_operations_social_ui.cloud.cloudfoundry import ONSCloudFoundry
@@ -37,6 +38,7 @@ def create_app(config_name=None):
 
     app.url_map.strict_slashes = False
     app.secret_key = app.config['RESPONSE_OPERATIONS_UI_SECRET']
+    app.default_jwt_algorithms = get_default_algorithms().keys()
 
     # Zipkin
     zipkin = Zipkin(app=app, sample_rate=app.config.get("ZIPKIN_SAMPLE_RATE"))
