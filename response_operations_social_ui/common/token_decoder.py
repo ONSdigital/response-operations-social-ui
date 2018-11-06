@@ -10,11 +10,10 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 
 def decode_access_token(access_token):
-    uaa_public_key = get_uaa_public_key()
-    decoded_jwt = jwt.decode(
+    return jwt.decode(
         access_token,
-        key=uaa_public_key,
+        key=get_uaa_public_key(),
         audience='response_operations_social',
-        leeway=10
+        leeway=10,
+        algorithms=['HS256']
     )
-    return decoded_jwt
