@@ -22,6 +22,8 @@ class SocialViewTestCase(ViewTestCase):
     post_case_event = f'{TestingConfig.CASE_URL}/cases/{case_id}/events'
     get_social_mi_report = \
         f'{TestingConfig.REPORT_URL}/reporting-api/v1/response-chasing/download-social-mi/{collection_exercise_id}'
+    get_collection_exercise_events_by_id_url = \
+        f'{TestingConfig.COLLECTION_EXERCISE_URL}/collectionexercises/{collection_exercise_id}/events'
 
     test_data_path = os.path.join(os.path.dirname(__file__), '../../test_data/')
 
@@ -37,3 +39,7 @@ class SocialViewTestCase(ViewTestCase):
         mocked_case_events = json.load(fp)
     with open(test_data_path + 'case/case_group_statuses.json') as fp:
         mocked_case_group_statuses = json.load(fp)
+    with open(test_data_path + 'collection_exercise/events/collection_exercise_events.json') as fp:
+        mocked_collex_events = json.load(fp)
+    with open(test_data_path + 'collection_exercise/events/collection_exercise_events_closed.json') as fp:
+        mocked_collex_events_closed = json.load(fp)

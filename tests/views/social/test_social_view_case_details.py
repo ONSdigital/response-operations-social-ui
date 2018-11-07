@@ -16,6 +16,7 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
         mock_request.get(self.get_case_events_by_case_id_url, json=self.mocked_case_events)
         mock_request.get(self.iac_url, json=self.mocked_iacs)
         mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
+        mock_request.get(self.get_collection_exercise_events_by_id_url, json=self.mocked_collex_events)
 
         response = self.client.get(f'/case/{self.case_id}', follow_redirects=True)
 
@@ -23,6 +24,7 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
         self.assertIn("LMS0001".encode(), response.data)
         self.assertIn("NV184QG".encode(), response.data)
         self.assertIn("In progress".encode(), response.data)
+        self.assertNotIn("The collection exercise for this case has closed".encode(), response.data)
 
     @requests_mock.mock()
     def test_get_social_sample_attributes_fail(self, mock_request):
@@ -71,6 +73,7 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
         mock_request.get(self.get_case_events_by_case_id_url, json=mocked_case_events_unknown_eligibility)
         mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
         mock_request.get(self.get_sample_attributes_by_id_url, json=self.mocked_sample_attributes)
+        mock_request.get(self.get_collection_exercise_events_by_id_url, json=self.mocked_collex_events)
         mock_request.get(self.iac_url, json=self.mocked_iacs)
 
         # When
@@ -111,6 +114,7 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
         mock_request.get(self.get_case_events_by_case_id_url, json=self.mocked_case_events)
         mock_request.get(self.iac_url, json=self.mocked_iacs)
         mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
+        mock_request.get(self.get_collection_exercise_events_by_id_url, json=self.mocked_collex_events)
         mock_request.post(self.post_case_new_iac_url, json={'iac': 'testiac12345'})
 
         response = self.client.post('/iac',
@@ -119,3 +123,18 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
                                     content_type='application/x-www-form-urlencoded')
 
         self.assertIn(b'test iac1 2345', response.data)
+
+    @requests_mock.mock()
+    def test_get_social_case_ce_closed(self, mock_request):
+        mock_request.get(self.get_case_by_id_url, json=self.mocked_case_details)
+        mock_request.get(self.get_sample_attributes_by_id_url, json=self.mocked_sample_attributes)
+        mock_request.get(self.get_case_events_by_case_id_url, json=self.mocked_case_events)
+        mock_request.get(self.iac_url, json=self.mocked_iacs)
+        mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
+        mock_request.get(self.get_collection_exercise_events_by_id_url, json=self.mocked_collex_events_closed)
+
+        response = self.client.get(f'/case/{self.case_id}', follow_redirects=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("Generate new code".encode(), response.data)
+        self.assertIn("The collection exercise for this case has closed".encode(), response.data)

@@ -15,6 +15,7 @@ class TestGenerateIac(SocialViewTestCase):
         mock_request.get(self.get_sample_by_id_url, json=self.mocked_sample_attributes)
         mock_request.get(self.get_case_events_by_case_id_url, json=self.mocked_case_events)
         mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
+        mock_request.get(self.get_collection_exercise_events_by_id_url, json=self.mocked_collex_events)
 
         response = self.client.post(f'/iac', follow_redirects=True, data=post_data)
 
