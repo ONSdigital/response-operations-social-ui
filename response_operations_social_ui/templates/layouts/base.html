@@ -1,22 +1,32 @@
 {% extends 'layouts/base-head.html' %}
+
 {% block base %}
   {% block body %}
-    <body style="position: relative; height: auto; min-height: 100%;">
+  <body>
     <div class="page account">
       <div class="page__content">
+
         <div class="skip">
           <a class="skip__link" href="#main">Skip to content</a>
         </div>
-        <header class="page__header">
-          {% include 'partials/header-logo.html' %}
-          {% include 'partials/banner.html' %}
-          {% block header %}{% endblock %}
+
+        <header class="header header--thin header--internal">
+          {% include 'partials/header.html' %}
+          {% block header %}{% endblock header %}
         </header>
-        <div class="container page__container">
+
+        <div class="container container--wide page__container">
           {% block main %}{% endblock main %}
         </div>
+
       </div>
+
+      {% block footer %}
+        {% include ('partials/footer.html') %}
+      {% endblock %}
+
     </div>
-    </body>
+    <script src="{{ scripts_cdn }}"></script>
+  </body>
   {% endblock body %}
-{% endblock %}
+{% endblock base %}

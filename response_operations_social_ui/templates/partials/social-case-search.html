@@ -1,14 +1,11 @@
 <div class="case-search">
-  <div class="bar__inner container">
+  <div class="container container--wide">
     <form action="{{ url_for('social_bp.social_case_search') }}" method='get'>
-      <label class="label venus u-mt-s" for="postcode-search">Find case by postcode</label>
-      <div class="field cosy">
-        <input class="input input--text case-search-input2" type="text" name="query" id="postcode-search"
-               maxlength="8" required/>
+      <div class="field">
+        <label class="label venus" for="postcode-search">Find case by postcode</label>
+        <input class="input input--text input-width-7 u-fl u-mr-s u-mb-xs u-pb-xs u-pt-xs" type="text" name="query" id="postcode-search" required/>
       </div>
-      <div class="cosy">
-        <button type="submit" class="btn btn--primary case-search-submit2" id="postcode-search-submit">Search</button>
-      </div>
+      <button type="submit" class="btn u-pb-xs u-pt-xs" id="postcode-search-submit">Search</button>
     </form>
   </div>
 </div>
