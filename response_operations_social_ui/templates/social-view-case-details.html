@@ -39,7 +39,7 @@
             {{ case_event_description }}
           </span>
           {% endif %}
-          {% if can_change_status %}
+          {% if not is_collex_closed and can_change_status %}
           <span class="response-status-action u-mt-s u-db">
             <form action="{{ url_for('social_bp.change_case_response_status', case_id=case_id) }}" method='GET'>
                 <button type="submit" class="btn btn--secondary btn--small"
