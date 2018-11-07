@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+{% set cdn_hash = "v1.8.1" %}
+{% set cdn_url_prefix = "https://cdn.ons.gov.uk/sdc/"~cdn_hash %}
+{% set css_responsive_cdn = cdn_url_prefix~"/css/responsive.css" %}
+{% set scripts_cdn = cdn_url_prefix~"/scripts/bundle.js" %}
 
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="ONS Social Surveys">
     <meta name="author" content="Survey Data Collection team for ONS" />
-    <meta name="description" content="ONS Business Surveys" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" href="{{ cdn_url_prefix }}/favicons/favicon.ico" >
 
     <title>{% block page_title %}{{ _('Survey Data Collection') }}{% endblock page_title %}</title>
-
-    <link rel=stylesheet type=text/css href="https://cdn.ons.gov.uk/sdc/322aece/css/styles.css">
+    <!--[if gt IE 8]><!-->
+      <script>document.documentElement.className = document.documentElement.className.replace('no-js','has-js')</script>
+    <!--<![endif]-->
+    <link rel=stylesheet type=text/css href="{{ css_responsive_cdn }}">
     {% assets "scss_all" %}
     <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
     {% endassets %}
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    {% assets "js_all" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    <link href="/static/images/favicon.ico" rel="Shortcut Icon" />
   </head>
 
 {% block base %}{% endblock %}
