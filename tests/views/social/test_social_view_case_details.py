@@ -24,6 +24,7 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
         self.assertIn("LMS0001".encode(), response.data)
         self.assertIn("NV184QG".encode(), response.data)
         self.assertIn("In progress".encode(), response.data)
+        self.assertIn("Change Status".encode(), response.data)
         self.assertNotIn("The collection exercise for this case has closed".encode(), response.data)
 
     @requests_mock.mock()
@@ -138,3 +139,4 @@ class TestSocialViewCaseDetails(SocialViewTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn("Generate new code".encode(), response.data)
         self.assertIn("The collection exercise for this case has closed".encode(), response.data)
+        self.assertNotIn("Change Status".encode(), response.data)
