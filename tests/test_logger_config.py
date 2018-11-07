@@ -1,41 +1,42 @@
+import json
 import logging
 import os
 import unittest
 
 from structlog import wrap_logger
-from testfixtures import log_capture
 
 from response_operations_social_ui.logger_config import logger_initial_config
 
 
 class TestLoggerConfig(unittest.TestCase):
 
-    @log_capture()
-    def test_success(self, l):
+    def test_success(self):
         os.environ['JSON_INDENT_LOGGING'] = '1'
         logger_initial_config(service_name='response-operations-social-ui')
         logger = wrap_logger(logging.getLogger())
-        logger.error('Test')
-        message = l.records[0].msg
-        message_contents = '\n "event": "Test",\n "trace": "",\n "span": "",\n "parent": "",' \
-                           '\n "level": "error",\n "service": "response-operations-social-ui"'
-        self.assertIn(message_contents, message)
+        with self.assertLogs('', 'ERROR') as cm:
+            logger.error('Test')
+        message_json = json.loads(cm.records[0].message)
+        message_contents = {"event": "Test", "trace": "", "span": "", "parent": "",
+                            "level": "error", "service": "response-operations-social-ui"}
+        for key, value in message_contents.items():
+            self.assertEqual(message_json[key], value)
 
-    @log_capture()
-    def test_indent_type_error(self, l):
+    def test_indent_type_error(self):
         os.environ['JSON_INDENT_LOGGING'] = 'abc'
         logger_initial_config(service_name='response-operations-social-ui')
         logger = wrap_logger(logging.getLogger())
-        logger.error('Test')
-        message = l.records[0].msg
+        with self.assertLogs('', 'ERROR') as cm:
+            logger.error('Test')
+        message = cm.records[0].msg
         self.assertIn('"event": "Test", "trace": "", "span": "", "parent": "",'
                       ' "level": "error", "service": "response-operations-social-ui"', message)
 
-    @log_capture()
-    def test_indent_value_error(self, l):
+    def test_indent_value_error(self):
         logger_initial_config(service_name='response-operations-social-ui')
         logger = wrap_logger(logging.getLogger())
-        logger.error('Test')
-        message = l.records[0].msg
+        with self.assertLogs('', 'ERROR') as cm:
+            logger.error('Test')
+        message = cm.records[0].msg
         self.assertIn('"event": "Test", "trace": "", "span": "", "parent": "",'
                       ' "level": "error", "service": "response-operations-social-ui"', message)
