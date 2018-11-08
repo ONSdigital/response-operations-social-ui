@@ -1,9 +1,8 @@
 /* Any CSS we need to override the CDN styles */
 /* Need to keep this minimal, and push styles up to the CDN when we're happy with them */
 
-@import "/css/components/spoke.css";
-
 /* Utility overrides */
+
 .input-width-7 {
   width: 8.6rem;
 }
@@ -13,3 +12,23 @@
   padding: .8rem 0;
   overflow: hidden;
 }
+
+/* Spoke styles for hub and spoke patterns and modals */
+
+/* Spoke pages - Starts */
+
+.spoke{
+  background-color: #999;
+}
+
+.spoke__header{
+  background-color: #eeecec;
+}
+
+.spoke__body{
+  margin: 0 0 2rem 0;
+  padding: 2rem 2rem 2rem 2rem;
+  background-color: #fff;
+}
+
+/* Spoke pages - Ends */
