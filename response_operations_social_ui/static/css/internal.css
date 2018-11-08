@@ -1,7 +1,7 @@
 /* Any CSS we need to override the CDN styles */
 /* Need to keep this minimal, and push styles up to the CDN when we're happy with them */
 
-@import "/css/components/spoke.css";
+@import "../css/components/spoke.css";
 
 /* Utility overrides */
 .input-width-7 {
