@@ -18,17 +18,11 @@
 /* Spoke pages - Starts */
 
 .spoke{
-  margin: 2rem 0;
   background-color: #999;
 }
 
 .spoke__header{
   background-color: #eeecec;
-}
-
-.spoke__header--title{
-  margin: 0;
-  padding: 1.5rem 2rem 0.5rem 2rem;
 }
 
 .spoke__body{
