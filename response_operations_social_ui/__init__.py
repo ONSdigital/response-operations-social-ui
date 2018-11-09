@@ -24,8 +24,16 @@ def create_app(config_name=None):
     app = Flask(__name__)
     app.name = "response_operations_social_ui"
 
+    app_config = f'config.{config_name or os.environ.get("APP_SETTINGS", "Config")}'
+    app.config.from_object(app_config)
+
     # Load css and js assets
     assets = Environment(app)
+
+    if app.config['DEBUG'] or app.config['DEBUG']:
+        assets.cache = False
+        assets.manifest = None
+
     assets.url = app.static_url_path
     scss_min = Bundle('css/*', 'css/fonts/*', 'css/components/*',
                       filters=['cssmin'], output='minimised/all.min.css')
@@ -33,8 +41,6 @@ def create_app(config_name=None):
     js_min = Bundle('js/*', filters='jsmin', output='minimised/all.min.js')
     assets.register('js_all', js_min)
 
-    app_config = f'config.{config_name or os.environ.get("APP_SETTINGS", "Config")}'
-    app.config.from_object(app_config)
 
     app.url_map.strict_slashes = False
     app.secret_key = app.config['RESPONSE_OPERATIONS_UI_SECRET']
