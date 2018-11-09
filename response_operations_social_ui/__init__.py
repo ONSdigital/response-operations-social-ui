@@ -41,7 +41,6 @@ def create_app(config_name=None):
     js_min = Bundle('js/*', filters='jsmin', output='minimised/all.min.js')
     assets.register('js_all', js_min)
 
-
     app.url_map.strict_slashes = False
     app.secret_key = app.config['RESPONSE_OPERATIONS_UI_SECRET']
     app.default_jwt_algorithms = get_default_algorithms().keys()
