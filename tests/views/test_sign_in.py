@@ -116,6 +116,7 @@ class TestSignIn(SocialViewTestCase):
         mock_request.get(self.get_case_events_by_case_id_url, json=self.mocked_case_events)
         mock_request.get(self.iac_url, json=self.mocked_iacs)
         mock_request.get(self.get_available_case_group_statuses_direct_url, json=self.mocked_case_group_statuses)
+        mock_request.get(self.get_collection_exercise_events_by_id_url, json=self.mocked_collex_events)
         with self.client.session_transaction() as session:
             session['next'] = f'/case/{self.case_id}'
         mock_request.post(url_sign_in_data, json={"access_token": self.access_token.decode()}, status_code=201)

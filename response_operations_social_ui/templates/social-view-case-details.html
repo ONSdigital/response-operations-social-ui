@@ -7,45 +7,52 @@
 
 {% block main %}
   {% if new_iac %}
-    <div class="panel panel--simple panel--success" id="new-iac-iac">
-     <div class="panel__body">
-        <h2 class="venus u-mb-xs">New unique access code:</h2>
-        <code class="saturn" id="new-iac">
-          {{new_iac}}
-        </code>
-      </div>
+  <div class="panel panel--simple panel--success" id="new-iac-iac">
+    <div class="panel__body">
+      <h2 class="venus u-mb-xs">New unique access code:</h2>
+      <code class="saturn" id="new-iac">
+        {{new_iac}}
+      </code>
     </div>
+  </div>
   {% endif %}
   {% for msg in get_flashed_messages(category_filter=["success"]) %}
-    <div class="panel panel--simple panel--success u-mt-l">
-      <div id="status_change_successful" class="panel__body">
-        <h2 class="venus">{{ msg }}</h2>
-      </div>
+  <div class="panel panel--simple panel--success u-mt-l">
+    <div id="status_change_successful" class="panel__body">
+      <h2 class="venus">{{ msg }}</h2>
     </div>
+  </div>
   {% endfor %}
+  {% if is_collex_closed %}
+  <div class="panel panel--simple panel--info u-mt-l" id="collection-exercise-closed-panel">
+    <div class="panel__body">
+      <h2 class="venus">The collection exercise for this case has closed.</h2>
+    </div>
+  </div>
+  {% endif %}
   <h1 class="jupiter u-mt-m" id="case_ref">{{case_reference}}</h1>
   <dl class="metadata metadata__list grid grid--gutterless" title="Item metadata" aria-label="Item metadata">
     <dt class="metadata__term grid__col col-1@m venus">Status:</dt>
     <dd class="metadata__value grid__col col-11@m venus">
-    <span class="response-status-headline" id="case-group-status">
-      {{status}}
-    </span>
-    <span class="response-status-detail mars u-mt-xs u-db">
-      {{ updated_status }}
-    </span>
-    {% if case_event_description is not none %}
-    <span class="response-status-detail mars u-mt-xs u-db" id="case-group-status-detailed">
-      {{ case_event_description }}
-    </span>
-    {% endif %}
-    {% if can_change_status %}
-    <div class="response-status-action u-mt-s u-db">
-      <form action="{{ url_for('social_bp.change_case_response_status', case_id=case_id) }}" method='GET'>
-        <button type="submit" class="btn btn--secondary btn--small" id="change-status-submit">Change Status</button>
-      </form>
-    </div>
-    {% endif %}
-  </dd>
+      <span class="response-status-headline" id="case-group-status">
+        {{status}}
+      </span>
+      <span class="response-status-detail mars u-mt-xs u-db">
+        {{ updated_status }}
+      </span>
+      {% if case_event_description is not none %}
+      <span class="response-status-detail mars u-mt-xs u-db" id="case-group-status-detailed">
+        {{ case_event_description }}
+      </span>
+      {% endif %}
+      {% if not is_collex_closed and can_change_status %}
+      <div class="response-status-action u-mt-s u-db">
+        <form action="{{ url_for('social_bp.change_case_response_status', case_id=case_id) }}" method='GET'>
+          <button type="submit" class="btn btn--secondary btn--small" id="change-status-submit">Change Status</button>
+        </form>
+      </div>
+      {% endif %}
+    </dd>
   </dl>
   <div class="case-details u-mt-m">
     <section class="social-case-section u-mt-l">
@@ -67,10 +74,12 @@
         There have been {{ iac_count }} unique access codes issued for this case.
       {% endif %}
       </p>
+      {% if not is_collex_closed %}
       <form action="{{ url_for('social_bp.generate_iac') }}" method='POST'>
         <input type="hidden" name="case_id" value="{{case_id}}"/>
         <button type="submit" class="btn btn--secondary btn--small generate-iac-submit u-mb-xs" id="generate-iac-submit">Generate new code</button>
       </form>
+      {% endif %}
     </section>
   </div>
 {% endblock %}
