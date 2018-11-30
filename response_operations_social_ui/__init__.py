@@ -1,9 +1,10 @@
+import json
 import logging
 import os
 import requestsdefaulter
 
 import redis
-from flask import Flask
+from flask import Flask, current_app, g
 from flask_assets import Bundle, Environment
 from flask_login import LoginManager
 from flask_session import Session
@@ -15,9 +16,6 @@ from response_operations_social_ui.cloud.cloudfoundry import ONSCloudFoundry
 from response_operations_social_ui.logger_config import logger_initial_config
 from response_operations_social_ui.user import User
 from response_operations_social_ui.views import setup_blueprints
-
-
-cf = ONSCloudFoundry()
 
 
 def create_app(config_name=None):
@@ -56,13 +54,13 @@ def create_app(config_name=None):
     def user_loader(user_id):
         return User(user_id)
 
+    cf = ONSCloudFoundry(redis_name=app.config['REDIS_SERVICE'])
     if cf.detected:
         with app.app_context():
             # If deploying in cloudfoundry set config to use cf redis instance
             logger.info('Cloudfoundry detected, setting service configurations')
-            service = cf.redis
-            app.config['REDIS_HOST'] = service.credentials['host']
-            app.config['REDIS_PORT'] = service.credentials['port']
+            app.config['REDIS_HOST'] = cf.redis.credentials['host']
+            app.config['REDIS_PORT'] = cf.redis.credentials['port']
 
     # wrap in the flask server side session manager and back it by redis
     app.config['SESSION_REDIS'] = redis.StrictRedis(host=app.config['REDIS_HOST'],
@@ -75,5 +73,19 @@ def create_app(config_name=None):
     Session(app)
 
     setup_blueprints(app)
+
+    @app.before_request
+    def check_for_messages():  # pylint: disable=unused-variable
+        try:
+            redis_connection = redis.Redis(host=current_app.config['REDIS_HOST'], port=current_app.config['REDIS_PORT'])
+            maintenance_message = redis_connection.get(current_app.config['REDIS_MAINTENANCE_KEY'])
+            if maintenance_message:
+                maintenance_message = json.loads(maintenance_message)
+                logger.info('Maintenance message received from redis')
+                g.maintenance_message = maintenance_message
+        except redis.exceptions.ConnectionError as e:
+            logger.error('Failed to connect to redis', message=str(e))
+        except TypeError as e:
+            logger.error('Unexpected message type received from redis', message=str(e))
 
     return app

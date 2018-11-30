@@ -17,6 +17,7 @@ class Config(object):
     REDIS_HOST = os.getenv('REDIS_HOST')
     REDIS_PORT = os.getenv('REDIS_PORT')
     REDIS_DB = os.getenv('REDIS_DB', 0)
+    REDIS_MAINTENANCE_KEY = os.getenv('REDIS_MAINTENANCE_KEY', 'response-operations-social-ui:maintenance')
     SECURE_COOKIES = strtobool(os.getenv('SECURE_COOKIES', 'True'))
     USE_SESSION_FOR_NEXT = True
 
@@ -59,6 +60,7 @@ class DevelopmentConfig(Config):
     REDIS_HOST = os.getenv('REDIS_HOST', "localhost")
     REDIS_PORT = os.getenv('REDIS_PORT', 7379)
     REDIS_DB = os.getenv('REDIS_DB', 0)
+    REDIS_MAINTENANCE_KEY = os.getenv('REDIS_MAINTENANCE_KEY', 'response-operations-social-ui:maintenance')
     SECURE_COOKIES = strtobool(os.getenv('SECURE_COOKIES', 'False'))
 
     # Service Config
@@ -98,4 +100,4 @@ class TestingConfig(DevelopmentConfig):
     SESSION_PERMANENT = False
     UAA_PUBLIC_KEY = 'Test'
     SECRET_KEY = 'sekrit!'
-
+    REDIS_SERVICE = 'test-redis'
