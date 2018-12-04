@@ -1,10 +1,9 @@
-import json
 import logging
 import os
 import requestsdefaulter
 
 import redis
-from flask import Flask, current_app, g
+from flask import Flask
 from flask_assets import Bundle, Environment
 from flask_login import LoginManager
 from flask_session import Session
@@ -14,6 +13,7 @@ from structlog import wrap_logger
 
 from response_operations_social_ui.cloud.cloudfoundry import ONSCloudFoundry
 from response_operations_social_ui.logger_config import logger_initial_config
+from response_operations_social_ui.maintenance import check_for_messages
 from response_operations_social_ui.user import User
 from response_operations_social_ui.views import setup_blueprints
 
@@ -63,29 +63,22 @@ def create_app(config_name=None):
             app.config['REDIS_PORT'] = cf.redis.credentials['port']
 
     # wrap in the flask server side session manager and back it by redis
-    app.config['SESSION_REDIS'] = redis.StrictRedis(host=app.config['REDIS_HOST'],
-                                                    port=app.config['REDIS_PORT'],
-                                                    db=app.config['REDIS_DB'])
+    redis_connection = redis.StrictRedis(host=app.config['REDIS_HOST'],
+                                         port=app.config['REDIS_PORT'],
+                                         db=app.config['REDIS_DB'])
+    try:
+        redis_connection.ping()
+    except redis.exceptions.ConnectionError as e:
+        logger.error('Failed to establish connection to redis', message=str(e))
+    else:
+        app.config['REDIS_CONNECTION'] = app.config['SESSION_REDIS'] = redis_connection
+        Session(app)  # NB: flask-session depends on a redis connection to operate
 
     if app.config['DEBUG']:
         app.jinja_env.auto_reload = True
 
-    Session(app)
-
     setup_blueprints(app)
 
-    @app.before_request
-    def check_for_messages():  # pylint: disable=unused-variable
-        try:
-            redis_connection = redis.Redis(host=current_app.config['REDIS_HOST'], port=current_app.config['REDIS_PORT'])
-            maintenance_message = redis_connection.get(current_app.config['REDIS_MAINTENANCE_KEY'])
-            if maintenance_message:
-                maintenance_message = json.loads(maintenance_message)
-                logger.info('Maintenance message received from redis')
-                g.maintenance_message = maintenance_message
-        except redis.exceptions.ConnectionError as e:
-            logger.error('Failed to connect to redis', message=str(e))
-        except TypeError as e:
-            logger.error('Unexpected message type received from redis', message=str(e))
+    app.before_request(check_for_messages)
 
     return app
