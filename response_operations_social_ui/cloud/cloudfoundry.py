@@ -1,15 +1,17 @@
 import cfenv
-from flask import current_app
 
 
 class ONSCloudFoundry(object):
-    def __init__(self):
-        self._cf_env = cfenv.AppEnv()
+    def __init__(self, redis_name):
+        self.cf_env = cfenv.AppEnv()
+        self.redis_name = redis_name
+        self._redis = None
 
     @property
     def detected(self):
-        return self._cf_env.app
+        return self.cf_env.app
 
     @property
     def redis(self):
-        return self._cf_env.get_service(name=current_app.config['REDIS_SERVICE'])
+        self._redis = self._redis or self.cf_env.get_service(name=self.redis_name)
+        return self._redis

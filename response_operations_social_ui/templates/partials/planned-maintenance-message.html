@@ -1,0 +1,13 @@
+<div class="grid">
+  <div class="grid__col col-12@m">
+    <div role="main" class="page__main col-6@m">
+      <div class="panel panel--simple panel--info u-mb-s">
+        <div class="panel__body">
+          {% for para in g.maintenance_message.text.split('\n') %}
+            <p class="mars">{{ para|safe }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
