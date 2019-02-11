@@ -9,9 +9,6 @@ cache:
 env:
   - APP_SETTINGS=TestingConfig
 
-before_install:
-  - 
-
 install:
   - pip install pipenv
   - pipenv install --dev --deploy
