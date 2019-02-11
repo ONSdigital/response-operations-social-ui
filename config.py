@@ -17,6 +17,7 @@ class Config(object):
     REDIS_HOST = os.getenv('REDIS_HOST')
     REDIS_PORT = os.getenv('REDIS_PORT')
     REDIS_DB = os.getenv('REDIS_DB', 0)
+    REDIS_MAINTENANCE_KEY = os.getenv('REDIS_MAINTENANCE_KEY', 'response-operations-social-ui:maintenance')
     SECURE_COOKIES = strtobool(os.getenv('SECURE_COOKIES', 'True'))
     USE_SESSION_FOR_NEXT = True
 
@@ -30,6 +31,11 @@ class Config(object):
     CASE_USERNAME = os.getenv('CASE_USERNAME')
     CASE_PASSWORD = os.getenv('CASE_PASSWORD')
     CASE_AUTH = (CASE_USERNAME, CASE_PASSWORD)
+
+    COLLECTION_EXERCISE_URL = os.getenv('COLLECTION_EXERCISE_URL')
+    COLLECTION_EXERCISE_USERNAME = os.getenv('COLLECTION_EXERCISE_USERNAME')
+    COLLECTION_EXERCISE_PASSWORD = os.getenv('COLLECTION_EXERCISE_PASSWORD')
+    COLLECTION_EXERCISE_AUTH = (COLLECTION_EXERCISE_USERNAME, COLLECTION_EXERCISE_PASSWORD)
 
     IAC_URL = os.getenv('IAC_URL')
     IAC_USERNAME = os.getenv('IAC_USERNAME')
@@ -54,6 +60,7 @@ class DevelopmentConfig(Config):
     REDIS_HOST = os.getenv('REDIS_HOST', "localhost")
     REDIS_PORT = os.getenv('REDIS_PORT', 7379)
     REDIS_DB = os.getenv('REDIS_DB', 0)
+    REDIS_MAINTENANCE_KEY = os.getenv('REDIS_MAINTENANCE_KEY', 'response-operations-social-ui:maintenance')
     SECURE_COOKIES = strtobool(os.getenv('SECURE_COOKIES', 'False'))
 
     # Service Config
@@ -61,6 +68,11 @@ class DevelopmentConfig(Config):
     CASE_USERNAME = os.getenv('CASE_USERNAME', 'admin')
     CASE_PASSWORD = os.getenv('CASE_PASSWORD', 'secret')
     CASE_AUTH = (CASE_USERNAME, CASE_PASSWORD)
+
+    COLLECTION_EXERCISE_URL = os.getenv('COLLECTION_EXERCISE_URL', 'http://localhost:8145')
+    COLLECTION_EXERCISE_USERNAME = os.getenv('COLLECTION_EXERCISE_USERNAME', 'admin')
+    COLLECTION_EXERCISE_PASSWORD = os.getenv('COLLECTION_EXERCISE_PASSWORD', 'secret')
+    COLLECTION_EXERCISE_AUTH = (COLLECTION_EXERCISE_USERNAME, COLLECTION_EXERCISE_PASSWORD)
 
     IAC_URL = os.getenv('IAC_URL', 'http://localhost:8121')
     IAC_USERNAME = os.getenv('IAC_USERNAME', 'admin')
@@ -88,4 +100,4 @@ class TestingConfig(DevelopmentConfig):
     SESSION_PERMANENT = False
     UAA_PUBLIC_KEY = 'Test'
     SECRET_KEY = 'sekrit!'
-
+    REDIS_SERVICE = 'test-redis'

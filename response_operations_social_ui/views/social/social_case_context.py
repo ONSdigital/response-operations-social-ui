@@ -5,6 +5,7 @@ from structlog import wrap_logger
 from response_operations_social_ui.common.social_outcomes import map_social_case_status, get_formatted_social_outcome, \
     get_social_status_from_event
 from response_operations_social_ui.controllers import case_controller, sample_controllers
+from response_operations_social_ui.controllers.collection_exercise_controller import collection_exercise_is_closed
 from response_operations_social_ui.controllers.case_controller import is_allowed_change_social_status
 
 logger = wrap_logger(logging.getLogger(__name__))
@@ -18,6 +19,7 @@ def build_view_social_case_context(case_id):
     context = dict()
 
     context['attributes'] = sample_controllers.get_sample_attributes(social_case['sampleUnitId'])['attributes']
+    context['is_collex_closed'] = collection_exercise_is_closed(social_case['caseGroup']['collectionExerciseId'])
     context['status'] = case_status
     context['case_id'] = case_id
     context['iac_count'] = case_controller.get_iac_count_for_case(case_id)

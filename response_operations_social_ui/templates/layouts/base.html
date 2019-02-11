@@ -16,7 +16,10 @@
         </header>
 
         <div class="container container--wide page__container">
-          {% block main %}{% endblock main %}
+        {% if g.maintenance_message %}
+          {% include 'partials/planned-maintenance-message.html' %}
+        {% endif %}
+        {% block main %}{% endblock main %}
         </div>
 
       </div>
