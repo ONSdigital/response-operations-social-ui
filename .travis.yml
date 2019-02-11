@@ -1,6 +1,6 @@
 language: python
 sudo: required
-dist: bionic
+dist: xenial
 python: '3.6'
 
 cache:
@@ -8,6 +8,7 @@ cache:
 
 env:
   - APP_SETTINGS=TestingConfig
+  - PIPENV_IGNORE_VIRTUALENVS=1
 
 install:
   - pip install pipenv
